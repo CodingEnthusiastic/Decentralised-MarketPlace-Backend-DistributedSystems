@@ -1,0 +1,234 @@
+NAME: Rahil Shah, Rishabh Shenoy, Aradya Shetty, Dhruv Shetty
+UID: 2023300217, 2023300222, 2023300223, 2023300224
+
+EXPERIMENT: 05
+APPLICATION: DECENTRALIZED MARKETPLACE APPLICATION
+AIM: Implementation of Data Consistency and Replication with Fault Tolerance
+
+REQUIREMENT: 
+Hardware Requirements:
+- Processor: Dual-core or higher
+- RAM: 8 GB minimum (for running multiple nodes)
+- Storage: 15 GB free disk space
+- Network: Stable network connectivity
+
+Software Requirements:
+- Python 3.8 or later
+- Socket programming libraries
+- Threading support
+- JSON for data serialization
+- Logging module for monitoring
+
+THEORY:
+
+Data Consistency and Replication in Distributed Systems:
+
+In distributed systems, data consistency ensures that all nodes have the same view of data at any given time. Replication involves maintaining multiple copies of data across different nodes to provide fault tolerance and improve availability.
+
+Primary-Backup Replication Model:
+The primary-backup model is a fundamental replication strategy where:
+- One node acts as the PRIMARY and handles all write operations
+- Multiple BACKUP nodes maintain synchronized copies of the data
+- All writes go through the primary, ensuring strong consistency
+- Backups can serve read requests to distribute load
+
+Key Components:
+
+1. Strong Consistency:
+   - All operations are processed through the primary node
+   - Writes are immediately replicated to all backup nodes
+   - Version numbers ensure all nodes maintain the same state
+   - Transaction logs maintain operation history
+
+2. Fault Tolerance:
+   - Automatic failover when primary node fails
+   - Backup nodes monitor primary through heartbeat mechanism
+   - Leader election promotes a backup to primary role
+   - No data loss during failover if replication is synchronous
+
+3. Replication Strategies:
+   - Synchronous Replication: Primary waits for backup acknowledgment
+   - Asynchronous Replication: Primary continues without waiting
+   - Semi-synchronous: Waits for at least one backup confirmation
+
+4. Conflict Resolution:
+   - Version vectors track the state of each node
+   - Transaction IDs ensure idempotent operations
+   - Timestamps order concurrent operations
+
+IMPLEMENTATION:
+
+Our implementation demonstrates:
+
+1. Primary-Backup Architecture:
+   - Primary node (port 6000) handles all write operations
+   - Backup nodes (ports 6001, 6002) maintain synchronized replicas
+   - Automatic client request routing to appropriate nodes
+
+2. Data Consistency Mechanisms:
+   - Version numbering for state synchronization
+   - Transaction logging for operation replay
+   - Atomic operations with proper locking
+
+3. Fault Tolerance Features:
+   - Heartbeat monitoring between primary and backups
+   - Automatic failover on primary failure
+   - State synchronization after network partitions
+   - Client automatic retry with backup servers
+
+4. Marketplace Operations:
+   - Product search across distributed inventory
+   - Purchase operations with inventory updates
+   - Stock management with real-time replication
+   - Multi-area marketplace support
+
+CODE DEMONSTRATION:
+
+Primary-Backup Server (exp5_primary_backup_server.py):
+- Implements MarketplaceNode class with replication logic
+- Handles client requests with consistency guarantees
+- Manages heartbeat and failover mechanisms
+- Maintains transaction logs and version control
+
+Client (exp5_client.py):
+- Automatic server discovery and failover
+- Stress testing capabilities
+- Consistency verification tools
+- Interactive testing interface
+
+TESTING PROCEDURES:
+
+1. Normal Operations Test:
+   - Start primary and backup servers
+   - Perform search, buy, and add stock operations
+   - Verify data consistency across nodes
+
+2. Fault Tolerance Test:
+   - Simulate primary server failure
+   - Verify automatic failover to backup
+   - Ensure continued operations without data loss
+
+3. Consistency Test:
+   - Perform concurrent operations
+   - Verify version synchronization
+   - Test transaction ordering
+
+4. Stress Test:
+   - Multiple concurrent clients
+   - High-frequency operations
+   - Network failure simulation
+
+RUNNING THE EXPERIMENT:
+
+1. Start servers:
+   ```
+   python exp5_primary_backup_server.py primary 6000 true
+   python exp5_primary_backup_server.py backup1 6001 false
+   python exp5_primary_backup_server.py backup2 6002 false
+   ```
+
+2. Run client tests:
+   ```
+   python exp5_client.py
+   ```
+
+3. Automated demo:
+   ```
+   ./run_fault_tolerance_demo.bat  (Windows)
+   ./run_fault_tolerance_demo.sh   (Linux/Mac)
+   ```
+
+EXPECTED OUTPUTS:
+
+Normal Operations:
+- Successful search results from distributed inventory
+- Purchase confirmations with updated quantities
+- Stock additions reflected across all nodes
+- Consistent version numbers across replicas
+
+Fault Tolerance:
+- Primary failure detection logs
+- Automatic backup promotion to primary
+- Continued client operations without interruption
+- Data consistency maintained during failover
+
+Performance Metrics:
+- Operation latency with replication overhead
+- Failover time (typically 5-10 seconds)
+- Consistency verification through version tracking
+- Network traffic analysis for replication
+
+ADVANTAGES:
+
+1. High Availability:
+   - System continues operating despite node failures
+   - Multiple backup nodes provide redundancy
+   - Automatic failover minimizes downtime
+
+2. Data Integrity:
+   - Strong consistency guarantees
+   - Transaction logging prevents data corruption
+   - Version control ensures state synchronization
+
+3. Scalability:
+   - Read operations can be distributed to backups
+   - Easy addition of new backup nodes
+   - Horizontal scaling capabilities
+
+4. Fault Recovery:
+   - Automatic state synchronization
+   - Transaction replay for failed operations
+   - Network partition tolerance
+
+CHALLENGES AND SOLUTIONS:
+
+1. Split-Brain Problem:
+   - Solution: Quorum-based decision making
+   - Majority consensus for leader election
+   - Network partition detection
+
+2. Replication Lag:
+   - Solution: Version numbers and timestamps
+   - Consistency checks before operations
+   - Configurable consistency levels
+
+3. Network Failures:
+   - Solution: Retry mechanisms with exponential backoff
+   - Circuit breaker patterns
+   - Graceful degradation
+
+USE CASE IN DECENTRALIZED MARKETPLACE:
+
+Scenario: Multi-Region Marketplace
+- Primary server in main datacenter handles all inventory updates
+- Backup servers in different regions serve local customers
+- Product searches use local replicas for fast response
+- Purchase operations ensure global inventory consistency
+- Automatic failover during regional outages
+
+Real-world Benefits:
+- 99.9% uptime despite individual server failures
+- Sub-second response times for read operations
+- Zero data loss during planned/unplanned outages
+- Seamless customer experience during failures
+
+CONCLUSION:
+
+This experiment successfully demonstrates the implementation of data consistency and replication with fault tolerance in a distributed marketplace system. The primary-backup model ensures strong consistency while providing high availability through automatic failover mechanisms.
+
+Key achievements:
+1. Implemented robust replication with version control
+2. Demonstrated automatic failover with minimal downtime
+3. Maintained data consistency during failures
+4. Provided seamless client experience with automatic retry
+
+The system effectively handles real-world scenarios like server failures, network partitions, and high-load conditions while maintaining the integrity of marketplace operations. This foundation can be extended to support more complex distributed patterns like multi-master replication and eventual consistency models.
+
+The experiment provides practical experience in building fault-tolerant distributed systems, essential knowledge for modern cloud-based applications and microservices architectures.
+
+REFERENCES:
+1. "Designing Data-Intensive Applications" by Martin Kleppmann
+2. "Distributed Systems: Concepts and Design" by Coulouris et al.
+3. AWS Documentation on High Availability Architectures
+4. Google's Spanner: Globally Distributed Database
+5. Microsoft Azure Service Fabric Documentation

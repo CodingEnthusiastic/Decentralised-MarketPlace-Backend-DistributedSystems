@@ -1,0 +1,569 @@
+Terminal 1:
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ start_servers_8000.bat
+bash: start_servers_8000.bat: command not found
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ./start_servers_8000.sh
+=== FINAL FIXED DISTRIBUTED MARKETPLACE ===
+Using ports 8000, 8001, 8002 to avoid conflicts...
+Stopping any existing processes...
+
+=== STEP 1: Starting Primary Server on Port 8000 ===
+Started primary server with PID 1895
+=== STEP 2: Starting Backup1 Server on Port 8001 ===
+Started backup1 server with PID 1897
+=== STEP 3: Starting Backup2 Server on Port 8002 ===
+Started backup2 server with PID 1905
+
+=== STEP 4: Testing Server Connectivity ===
+
+=== STARTUP COMPLETE ===
+
+Server Information:
+  Primary:  localhost:8000 (logs/primary_8000.log)
+  Backup1:  localhost:8001 (logs/backup1_8001.log)
+  Backup2:  localhost:8002 (logs/backup2_8002.log)
+
+Server PIDs:
+  Primary: 1895
+  Backup1: 1897
+  Backup2: 1905
+
+Available Commands:
+  1. Test all features:     bash test_all_features_8000.sh
+  2. Interactive client:    python3 exp5_enhanced_client.py
+  3. Quick status check:    python3 -c "from exp5_enhanced_client import EnhancedMarketplaceClient; print(EnhancedMarketplaceClient().get_server_status())"
+
+To stop all servers:
+  bash stop_servers_8000.sh
+
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ./start_servers_8000.sh
+=== FINAL FIXED DISTRIBUTED MARKETPLACE ===
+Using ports 8000, 8001, 8002 to avoid conflicts...
+Stopping any existing processes...
+
+=== STEP 1: Starting Primary Server on Port 8000 ===
+Started primary server with PID 2001
+=== STEP 2: Starting Backup1 Server on Port 8001 ===
+Started backup1 server with PID 2048
+=== STEP 3: Starting Backup2 Server on Port 8002 ===
+Started backup2 server with PID 2055
+
+=== STEP 4: Testing Server Connectivity ===
+
+=== STARTUP COMPLETE ===
+
+Server Information:
+  Primary:  localhost:8000 (logs/primary_8000.log)
+  Backup1:  localhost:8001 (logs/backup1_8001.log)
+  Backup2:  localhost:8002 (logs/backup2_8002.log)
+
+Server PIDs:
+  Primary: 2001
+  Backup1: 2048
+  Backup2: 2055
+
+Available Commands:
+  1. Test all features:     bash test_all_features_8000.sh
+  2. Interactive client:    python3 exp5_enhanced_client.py
+  3. Quick status check:    python3 -c "from exp5_enhanced_client import EnhancedMarketplaceClient; print(EnhancedMarketplaceClient().get_server_status())"
+
+To stop all servers:
+  bash stop_servers_8000.sh
+
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ./start_servers_8000.sh
+
+
+
+Terminal 2:
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ chmod +x start_servers_8000.sh test_all_features_8000.sh stop_servers_8000.sh
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ./test_all_features_8000.sh
+=== COMPREHENSIVE FEATURE TESTING - Port 8000 Series ===
+Testing all three main features of the distributed marketplace...
+
+=== TEST 1: PRIMARY-BACKUP REPLICATION ===
+
+=== TEST 2: FAULT TOLERANCE ===
+
+=== TEST 3: LOAD BALANCING ===
+
+=== PERFORMANCE AND STRESS TESTING ===
+
+=== FINAL SYSTEM STATUS ===
+
+Press Enter to continue...
+
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ now server client are running , now give me sample input output to demonstrate how replication , load balancer test , fault tolerance , consistencyy test are been verified ; with detail
+bash: now: command not found
+bash: with: command not found
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ now server client are running , now give me sample input output to demonstrate how replication , load balancer test , fault tolerance , consistencyy test are been verified ; with detail
+bash: now: command not found
+bash: with: command not found
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ./start_servers_8000.sh
+=== FINAL FIXED DISTRIBUTED MARKETPLACE ===
+Using ports 8000, 8001, 8002 to avoid conflicts...
+Stopping any existing processes...
+
+=== STEP 1: Starting Primary Server on Port 8000 ===
+Started primary server with PID 2103
+=== STEP 2: Starting Backup1 Server on Port 8001 ===
+Started backup1 server with PID 2105
+=== STEP 3: Starting Backup2 Server on Port 8002 ===
+Started backup2 server with PID 2107
+
+=== STEP 4: Testing Server Connectivity ===
+
+=== STARTUP COMPLETE ===
+
+Server Information:
+  Primary:  localhost:8000 (logs/primary_8000.log)
+  Backup1:  localhost:8001 (logs/backup1_8001.log)
+  Backup2:  localhost:8002 (logs/backup2_8002.log)
+
+Server PIDs:
+  Primary: 2103
+  Backup1: 2105
+  Backup2: 2107
+
+Available Commands:
+  1. Test all features:     bash test_all_features_8000.sh
+  2. Interactive client:    python3 exp5_enhanced_client.py
+  3. Quick status check:    python3 -c "from exp5_enhanced_client import EnhancedMarketplaceClient; print(EnhancedMarketplaceClient().get_server_status())"
+
+To stop all servers:
+  bash stop_servers_8000.sh
+
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python3 -c "
+> from exp5_enhanced_client import EnhancedMarketplaceClient
+> import time, socket, json
+> 
+> print('=== REPLICATION DEMONSTRATION ===')
+> client = EnhancedMarketplaceClient()
+> 
+> # Step 1: Add data to primary server
+> print('\n1. Adding product to primary server:')
+> result = client.add_stock('Mumbai', 'TechStore', 'iPhone15', 25)
+> print(f'INPUT: add_stock(\"Mumbai\", \"TechStore\", \"iPhone15\", 25)')
+> print(f'OUTPUT: {result}')
+> 
+> # Step 2: Check replication on each server
+> print('\n2. Verifying replication on each server:')
+> time.sleep(2)  # Wait for replication
+> 
+> for port in [8000, 8001, 8002]:
+>     try:
+>         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+>         sock.settimeout(3)
+>         sock.connect(('localhost', port))
+>         
+>         request = {'type': 'search_product', 'query': 'iPhone15'}
+>         sock.send(json.dumps(request).encode('utf-8'))
+>         response_data = sock.recv(1024).decode('utf-8')
+>         response = json.loads(response_data)
+>         sock.close()
+>         
+>         print(f'Server {port}: {response}')
+>         
+>     except Exception as e:
+>         print(f'Server {port}: ERROR - {e}')
+> "
+Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases.
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python3 -c "
+$ ./start_servers_8000.sh import EnhancedMarketplaceClient
+  python3 -c "
+$ ./start_servers_8000.sh import EnhancedMarketplaceClient
+  python3 -c "
+from exp5_enhanced_client import EnhancedMarketplaceClient
+import time, socket, json
+
+print('=== REPLICATION DEMONSTRATION ===')
+client = EnhancedMarketplaceClient()
+
+# Step 1: Add data to primary server
+print('\n1. Adding product to primary server:')
+result = client.add_stock('Mumbai', 'TechStore', 'iPhone15', 25)
+print(f'INPUT: add_stock(\"Mumbai\", \"TechStore\", \"iPhone15\", 25)')
+print(f'OUTPUT: {result}')
+
+# Step 2: Check replication on each server
+print('\n2. Verifying replication on each server:')
+time.sleep(2)  # Wait for replication
+
+for port in [8000, 8001, 8002]:
+"^C     print(f'Server {port}: ERROR - {e}')de('utf-8')iPhone15'}
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python3 -c "
+> from exp5_enhanced_client import EnhancedMarketplaceClient
+> import time, socket, json
+> 
+> print('=== REPLICATION DEMONSTRATION ===')
+> client = EnhancedMarketplaceClient()
+> 
+> # Step 1: Add data to primary server
+> print('\n1. Adding product to primary server:')
+> result = client.add_stock('Mumbai', 'TechStore', 'iPhone15', 25)
+> print(f'INPUT: add_stock(\"Mumbai\", \"TechStore\", \"iPhone15\", 25)')
+> print(f'OUTPUT: {result}')
+> 
+> # Step 2: Check replication on each server
+> print('\n2. Verifying replication on each server:')
+> time.sleep(2)  # Wait for replication
+> 
+> for port in [8000, 8001, 8002]:
+>     try:
+>         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+>         sock.settimeout(3)
+>         sock.connect(('localhost', port))
+>         
+>         request = {'type': 'search_product', 'query': 'iPhone15'}
+>         sock.send(json.dumps(request).encode('utf-8'))
+>         response_data = sock.recv(1024).decode('utf-8')
+>         response = json.loads(response_data)
+>         sock.close()
+>         
+>         print(f'Server {port}: {response}')
+>         
+>     except Exception as e:
+>         print(f'Server {port}: ERROR - {e}')
+> "
+Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases.
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ bash test_all_features_8000.sh
+=== COMPREHENSIVE FEATURE TESTING - Port 8000 Series ===
+Testing all three main features of the distributed marketplace...
+
+=== TEST 1: PRIMARY-BACKUP REPLICATION ===
+
+=== TEST 2: FAULT TOLERANCE ===
+
+=== TEST 3: LOAD BALANCING ===
+
+=== PERFORMANCE AND STRESS TESTING ===
+
+=== FINAL SYSTEM STATUS ===
+
+Press Enter to continue...
+
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python exp5_enhanced_client.py
+=== ENHANCED MARKETPLACE CLIENT WITH LOAD BALANCING ===
+Choose test mode:
+1. Interactive client
+2. Load balancing test
+3. Fault tolerance + Load balancing test
+4. Replication consistency test
+5. Stress test with load balancing
+Enter choice (1-5): 1
+=== ENHANCED INTERACTIVE MARKETPLACE CLIENT ===
+Commands:
+1. search <product>
+2. buy <area> <shop> <product> [quantity]
+3. add <area> <shop> <product> <quantity>
+4. status
+5. lb_config <algorithm>
+6. lb_stats
+7. test_lb
+8. test_ft
+9. test_consistency
+10. exit
+
+[client-8785] Enter command: search mango
+Connected to server at localhost:8000
+{
+  "status": "success",
+  "product": "mango",
+  "results": [
+    {
+      "area": "bhayandar",
+      "shop": "Farm_Fresh",
+      "quantity": 25,
+      "node": "primary"
+    }
+  ],
+  "timestamp": "2025-10-19T19:07:56.817845",
+  "version": 0,
+  "served_by": "primary",
+  "load_balanced": false,
+  "fallback_reason": "backup_timeout"
+}
+
+[client-8785] Enter command:
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python -c "
+> from exp5_enhanced_client import EnhancedMarketplaceClient
+> 
+> client = EnhancedMarketplaceClient()
+> 
+> # Add new product
+> print('=== ADDING NEW PRODUCT ===')
+> result = client.add_stock('Delhi', 'ElectroWorld', 'Laptop', 10)
+> print('INPUT: add_stock(\"Delhi\", \"ElectroWorld\", \"Laptop\", 10)')
+> print('OUTPUT:', result)
+> 
+> # Search to verify
+> print('\n=== VERIFYING REPLICATION ===')  
+> search_result = client.search_product('Laptop')
+> print('INPUT: search_product(\"Laptop\")')
+> print('OUTPUT:', search_result)
+> "
+=== ADDING NEW PRODUCT ===
+Connected to server at localhost:8000
+INPUT: add_stock("Delhi", "ElectroWorld", "Laptop", 10)
+OUTPUT: {'status': 'success', 'message': 'Added 10 Laptop to ElectroWorld', 'new_quantity': 10, 'version': 1, 'processed_by': 'primary'}
+
+=== VERIFYING REPLICATION ===
+Connected to server at localhost:8000
+INPUT: search_product("Laptop")
+OUTPUT: {'status': 'success', 'product': 'Laptop', 'results': [{'area': 'Delhi', 'shop': 'ElectroWorld', 'quantity': 10, 'node': 'primary'}], 'timestamp': '2025-10-19T19:08:19.897420', 'version': 1, 'served_by': 'primary', 'load_balanced': False, 'fallback_reason': 'backup_timeout'}
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python -c "
+> from exp5_enhanced_client import EnhancedMarketplaceClient
+> 
+> client = EnhancedMarketplaceClient()
+> 
+> print('=== LOAD BALANCER CONFIGURATION TEST ===')
+> 
+> # Test different algorithms
+> algorithms = ['round_robin', 'weighted', 'least_connections', 'hash_based']
+> 
+> for algo in algorithms:
+>     print(f'\n--- Testing {algo.upper()} ---')
+>     result = client.configure_load_balancer(algo)
+>     print(f'INPUT: configure_load_balancer(\"{algo}\")')
+>     print(f'OUTPUT: {result}')
+>     
+>     # Test load distribution with status checks
+>     print('Testing distribution:')
+>     for i in range(3):
+>         status = client.get_server_status()
+>         server = status.get('node_id', 'unknown')
+>         print(f'  Request {i+1}: Routed to {server}')
+> "
+=== LOAD BALANCER CONFIGURATION TEST ===
+
+--- Testing ROUND_ROBIN ---
+Connected to server at localhost:8000
+INPUT: configure_load_balancer("round_robin")
+OUTPUT: {'status': 'success', 'message': 'Load balancing algorithm set to round_robin', 'available_algorithms': ['round_robin', 'weighted', 'least_connections', 'hash_based']}
+Testing distribution:
+Connected to server at localhost:8000
+  Request 1: Routed to primary
+Connected to server at localhost:8000
+  Request 2: Routed to primary
+Connected to server at localhost:8000
+  Request 3: Routed to primary
+
+--- Testing WEIGHTED ---
+Connected to server at localhost:8000
+INPUT: configure_load_balancer("weighted")
+OUTPUT: {'status': 'success', 'message': 'Load balancing algorithm set to weighted', 'available_algorithms': ['round_robin', 'weighted', 'least_connections', 'hash_based']}
+Testing distribution:
+Connected to server at localhost:8000
+  Request 1: Routed to primary
+Connected to server at localhost:8000
+  Request 2: Routed to primary
+Connected to server at localhost:8000
+  Request 3: Routed to primary
+
+--- Testing LEAST_CONNECTIONS ---
+Connected to server at localhost:8000
+INPUT: configure_load_balancer("least_connections")
+OUTPUT: {'status': 'success', 'message': 'Load balancing algorithm set to least_connections', 'available_algorithms': ['round_robin', 'weighted', 'least_connections', 'hash_based']}
+Testing distribution:
+Connected to server at localhost:8000
+  Request 1: Routed to primary
+Connected to server at localhost:8000
+  Request 2: Routed to primary
+Connected to server at localhost:8000
+  Request 3: Routed to primary
+
+--- Testing HASH_BASED ---
+Connected to server at localhost:8000
+INPUT: configure_load_balancer("hash_based")
+OUTPUT: {'status': 'success', 'message': 'Load balancing algorithm set to hash_based', 'available_algorithms': ['round_robin', 'weighted', 'least_connections', 'hash_based']}
+Testing distribution:
+Connected to server at localhost:8000
+  Request 1: Routed to primary
+Connected to server at localhost:8000
+  Request 2: Routed to primary
+Connected to server at localhost:8000
+  Request 3: Routed to primary
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ps aux | grep exp5_enhanced_server
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ pgrep -f exp5_enhanced_server
+bash: pgrep: command not found
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ tail -10 logs/primary_8000.log
+2025-10-19 19:06:15,564 - Node-primary - INFO - Primary node initialized on port 8000
+2025-10-19 19:06:15,567 - Node-primary - INFO - Server listening on port 8000
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python -c "
+> from exp5_enhanced_client import EnhancedMarketplaceClient
+> 
+> client = EnhancedMarketplaceClient()
+> 
+> print('=== FAULT TOLERANCE DEMONSTRATION ===')
+> print('1. Current system status:')
+> status = client.get_server_status()
+> print(f'OUTPUT: {status}')
+> 
+> print('\n2. Adding test data before fault simulation:')
+> result = client.add_stock('FT_Area', 'FT_Shop', 'FT_Product', 50)
+> print(f'INPUT: add_stock(\"FT_Area\", \"FT_Shop\", \"FT_Product\", 50)')
+> print(f'OUTPUT: {result}')
+> "
+=== FAULT TOLERANCE DEMONSTRATION ===
+1. Current system status:
+Connected to server at localhost:8000
+OUTPUT: {'status': 'success', 'node_id': 'primary', 'port': 8000, 'is_primary': True, 'version': 1, 'transaction_count': 1, 'last_heartbeat': 1760880793.9346359, 'timestamp': 1760881126.3762312, 'request_count': 19, 'average_response_time': 0.34920847292386037, 'cpu_usage': 0, 'memory_usage': 0, 'load_balancer': {'algorithm': 'hash_based', 'active_nodes': ['backup-8001', 'backup-8002'], 'node_weights': {'backup-8001': 1.0, 'backup-8002': 1.0}, 'node_connections': {'backup-8001': 0, 'backup-8002': 0}, 'node_response_times': {}}}
+
+2. Adding test data before fault simulation:
+Connected to server at localhost:8000
+INPUT: add_stock("FT_Area", "FT_Shop", "FT_Product", 50)
+OUTPUT: {'status': 'success', 'message': 'Added 50 FT_Product to FT_Shop', 'new_quantity': 50, 'version': 2, 'processed_by': 'primary'}
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ python -c "
+> from exp5_enhanced_client import EnhancedMarketplaceClient
+> import time
+> 
+> client = EnhancedMarketplaceClient()
+> 
+> print('=== CONSISTENCY TEST DEMONSTRATION ===')
+> 
+> # Test 1: Version consistency
+> print('1. Testing version consistency:')
+> for i in range(3):
+>     result = client.add_stock('Consistency_Test', f'Shop_{i}', f'Item_{i}', 10)
+>     version = result.get('version', -1)
+>     print(f'   Add Item_{i}: Version {version}')
+> 
+> print('\n2. Testing search consistency:')
+> search_result = client.search_product('Item_')
+> results = search_result.get('results', [])
+> print(f'   Found {len(results)} items with consistent versions')
+> for result in results:
+>     print(f'   - {result}')
+> 
+> print('\n3. Testing transaction ordering:')
+> # Rapid sequential operations
+> start_time = time.time()
+> for i in range(5):
+>     client.add_stock('OrderTest', 'Shop', f'SeqItem_{i}', 1)
+> end_time = time.time()
+> 
+> print(f'   Processed 5 sequential operations in {end_time - start_time:.3f} seconds')
+> 
+> # Verify ordering
+> search_result = client.search_product('SeqItem_')
+> results = search_result.get('results', [])
+> print(f'   All {len(results)} sequential items preserved in order')
+> "
+=== CONSISTENCY TEST DEMONSTRATION ===
+1. Testing version consistency:
+Connected to server at localhost:8000
+   Add Item_0: Version 3
+Connected to server at localhost:8000
+   Add Item_1: Version 4
+Connected to server at localhost:8000
+   Add Item_2: Version 5
+
+2. Testing search consistency:
+Connected to server at localhost:8000
+   Found 0 items with consistent versions
+
+3. Testing transaction ordering:
+Connected to server at localhost:8000
+Connected to server at localhost:8000
+Connected to server at localhost:8000
+Connected to server at localhost:8000
+Connected to server at localhost:8000
+   Processed 5 sequential operations in 0.089 seconds
+Connected to server at localhost:8000
+   All 0 sequential items preserved in order
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$
+
+
+
+Terminal 3:
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$ ./stop_servers_8000.sh
+=== STOPPING ALL SERVERS - Port 8000 Series ===
+
+Stopping distributed marketplace servers...
+Terminating server processes...
+Checking if servers are stopped...
+WARNING: Port 8000 still in use
+WARNING: Port 8001 still in use
+WARNING: Port 8002 still in use
+
+Cleanup complete!
+All servers should now be stopped.
+
+To restart servers, run:
+  bash start_servers_8000.sh
+
+
+risha@Admin MINGW64 ~/OneDrive/Desktop/dc_exp (master)
+$
+
+
+
+Terminal 4:
+
+python exp5_enhanced_client.py
+=== ENHANCED MARKETPLACE CLIENT WITH LOAD BALANCING ===
+Choose test mode:
+1. Interactive client
+2. Load balancing test
+3. Fault tolerance + Load balancing test
+4. Replication consistency test
+5. Stress test with load balancing
+Enter choice (1-5): 1
+=== ENHANCED INTERACTIVE MARKETPLACE CLIENT ===
+Commands:
+1. search <product>
+2. buy <area> <shop> <product> [quantity]
+3. add <area> <shop> <product> <quantity>
+4. status
+5. lb_config <algorithm>
+6. lb_stats
+7. test_lb
+8. test_ft
+9. test_consistency
+10. exit
+
+[client-7730] Enter command:
