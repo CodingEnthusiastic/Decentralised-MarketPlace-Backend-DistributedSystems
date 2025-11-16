@@ -1,0 +1,136 @@
+Below is a very simple, ports-only, multi-terminal runnable example that demonstrates a load-balancing algorithm in a distributed system using Python sockets (NO threading, NO multiprocessing).
+You will run three terminals:
+
+Terminal 1 → Load Balancer
+
+Terminal 2 → Worker A
+
+Terminal 3 → Worker B
+
+The client will connect to the load balancer, and the balancer forwards the task to one of the workers using Round-Robin.
+
+✔ Terminal 1 — load_balancer.py
+import socket
+
+WORKERS = [
+    ("localhost", 5001),  # Worker A
+    ("localhost", 5002)   # Worker B
+]
+
+def send_to_worker(worker_addr, task):
+    s = socket.socket()
+    s.connect(worker_addr)
+    s.send(task.encode())
+    reply = s.recv(1024).decode()
+    s.close()
+    return reply
+
+lb_sock = socket.socket()
+lb_sock.bind(("localhost", 5000))
+lb_sock.listen(5)
+
+print("Load Balancer running on port 5000...")
+rr = 0  # round-robin pointer
+
+while True:
+    client, addr = lb_sock.accept()
+    task = client.recv(1024).decode()
+
+    worker = WORKERS[rr]
+    rr = (rr + 1) % len(WORKERS)
+
+    print(f"Forwarding task '{task}' → Worker {worker[1]}")
+
+    reply = send_to_worker(worker, task)
+    client.send(reply.encode())
+
+    client.close()
+
+✔ Terminal 2 — worker_a.py
+import socket
+
+sock = socket.socket()
+sock.bind(("localhost", 5001))
+sock.listen(5)
+
+print("Worker A ready on port 5001")
+
+while True:
+    conn, addr = sock.accept()
+    task = conn.recv(1024).decode()
+    print("Worker A received:", task)
+
+    result = f"[A processed: {task}]"
+    conn.send(result.encode())
+    conn.close()
+
+✔ Terminal 3 — worker_b.py
+import socket
+
+sock = socket.socket()
+sock.bind(("localhost", 5002))
+sock.listen(5)
+
+print("Worker B ready on port 5002")
+
+while True:
+    conn, addr = sock.accept()
+    task = conn.recv(1024).decode()
+    print("Worker B received:", task)
+
+    result = f"[B processed: {task}]"
+    conn.send(result.encode())
+    conn.close()
+
+✔ Test Client (optional) — client.py
+import socket
+
+while True:
+    msg = input("Enter task: ")
+
+    s = socket.socket()
+    s.connect(("localhost", 5000))
+    s.send(msg.encode())
+    reply = s.recv(1024).decode()
+    s.close()
+
+    print("Reply:", reply)
+
+✔ Sample Output
+Worker A Terminal:
+Worker A ready on port 5001
+Worker A received: job1
+Worker A received: job3
+Worker A received: job5
+
+Worker B Terminal:
+Worker B ready on port 5002
+Worker B received: job2
+Worker B received: job4
+Worker B received: job6
+
+Load Balancer Terminal:
+Load Balancer running on port 5000...
+Forwarding task 'job1' → Worker 5001
+Forwarding task 'job2' → Worker 5002
+Forwarding task 'job3' → Worker 5001
+Forwarding task 'job4' → Worker 5002
+
+Client Terminal:
+Enter task: job1
+Reply: [A processed: job1]
+
+Enter task: job2
+Reply: [B processed: job2]
+
+✔ What This Demonstrates
+
+Round-Robin load balancing
+
+Task forwarding through load balancer
+
+Workers acting as distributed processing nodes
+
+Multiple terminals communicating using sockets
+
+No threads, no IP configuration — only localhost + ports
