@@ -1,0 +1,137 @@
+Below is a simple, clean Python socket code that demonstrates fault tolerance + replication:
+
+Multiple replica servers run on different ports.
+
+A client sends a request to a "primary" server.
+
+If the primary fails, the client automatically retries with the next server.
+
+All active servers replicate the received data to maintain consistency.
+
+✅ Fault-Tolerant Replicated Servers (Ports Only, No Threads)
+Server Code (server.py)
+
+Run multiple copies in different terminals with different ports:
+
+python3 server.py 5001
+python3 server.py 5002
+python3 server.py 5003
+
+import socket
+import sys
+
+PORT = int(sys.argv[1])
+REPLICAS = [5001, 5002, 5003]  # all server ports
+
+def replicate_to_others(message):
+    for p in REPLICAS:
+        if p == PORT: 
+            continue
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect(("localhost", p))
+            s.sendall(("REPL:" + message).encode())
+            s.close()
+        except:
+            pass  # replica down -> ignore
+
+def start_server():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("localhost", PORT))
+    s.listen(5)
+    print(f"[Server {PORT}] Running...")
+
+    logs = []
+
+    while True:
+        conn, addr = s.accept()
+        data = conn.recv(1024).decode()
+
+        if data.startswith("REPL:"):
+            msg = data[5:]
+            logs.append(msg)
+            print(f"[Server {PORT}] Replicated => {msg}")
+            conn.close()
+            continue
+
+        # Normal client message
+        logs.append(data)
+        print(f"[Server {PORT}] Received => {data}")
+
+        # replicate to other servers
+        replicate_to_others(data)
+
+        conn.sendall(f"ACK from {PORT}".encode())
+        conn.close()
+
+start_server()
+
+✅ Client Code (client.py)
+
+Client tries servers in order:
+
+PRIMARY = [5001, 5002, 5003]
+
+
+If a server is down → client automatically switches.
+
+import socket
+
+SERVERS = [5001, 5002, 5003]  # try servers in order
+
+def send_message(msg):
+    for port in SERVERS:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect(("localhost", port))
+            s.sendall(msg.encode())
+            data = s.recv(1024).decode()
+            print(f"Response from {port}: {data}")
+            s.close()
+            return
+        except:
+            print(f"Server {port} DOWN, trying next...")
+            continue
+
+    print("No servers available!")
+
+# Example usage
+while True:
+    m = input("Enter message: ")
+    send_message(m)
+
+⭐ Sample Output Demonstration
+Server 5001 terminal
+[Server 5001] Running...
+[Server 5001] Received => hello
+[Server 5001] Received => update1
+
+Server 5002 terminal
+[Server 5002] Running...
+[Server 5002] Replicated => hello
+[Server 5002] Replicated => update1
+
+Client terminal
+Enter message: hello
+Response from 5001: ACK from 5001
+
+Enter message: update1
+Response from 5001: ACK from 5001
+
+
+Now kill server 5001.
+
+Client after failure
+Server 5001 DOWN, trying next...
+Response from 5002: ACK from 5002
+
+Server 5002
+[Server 5002] Received => update1
+
+🎯 Features Provided
+
+✔ Fault tolerance (automatic failover)
+✔ Replication among servers
+✔ Simple socket-only code
+✔ No IP addresses (only localhost + ports)
+✔ Easy to run in multiple terminals
