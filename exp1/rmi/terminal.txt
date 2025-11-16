@@ -1,0 +1,25 @@
+1️⃣ Compile
+javac *.java
+
+2️⃣ Start RMI Registry
+rmiregistry &
+
+
+(Leave it running.)
+
+3️⃣ Start Server
+java Server
+
+
+You should see:
+
+RMI Calculator Server running on port 1099...
+
+4️⃣ Run Client (new terminal)
+java Client
+
+
+Expected output:
+
+Addition (10 + 20): 30
+Multiplication (5 * 6): 30
