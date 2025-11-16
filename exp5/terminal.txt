@@ -1,0 +1,35 @@
+🎯 HOW TO RUN (multiple terminals)
+Terminal 1:
+python3 primary.py
+
+Terminal 2:
+python3 replica1.py
+
+Terminal 3:
+python3 replica2.py
+
+Terminal 4 (client):
+python3 client.py
+
+
+Enter:
+
+Key = x
+Value = 10
+
+📌 Sample Output
+PRIMARY Terminal
+[PRIMARY] Running... waiting for WRITE commands
+[PRIMARY] Applied WRITE x=10
+[PRIMARY] Replicated to all replicas
+
+REPLICA1 Terminal
+[REPLICA1] Running...
+[REPLICA1] Updated x=10
+
+REPLICA2 Terminal
+[REPLICA2] Running...
+[REPLICA2] Updated x=10
+
+CLIENT Terminal
+[CLIENT] Write sent to PRIMARY
