@@ -1,0 +1,121 @@
+Here is minimum-change, easiest multithreaded version of your RPC server.
+
+✔ No logic changed
+✔ Only 3 extra lines added
+✔ Now multiple clients can run from many terminals simultaneously
+✔ Client code stays EXACTLY same
+✅ Multithreaded RPC Server (very easy)
+# rpc_server.py
+import socket
+import json
+import threading   # <-- added
+
+# RPC functions
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+# Function registry
+FUNCTIONS = {
+    "add": add,
+    "multiply": multiply
+}
+
+def handle_request(request_json):
+    try:
+        req = json.loads(request_json)
+        func_name = req["method"]
+        args = req.get("params", [])
+
+        if func_name not in FUNCTIONS:
+            return json.dumps({"error": "Method not found"})
+
+        result = FUNCTIONS[func_name](*args)
+        return json.dumps({"result": result})
+    except Exception as e:
+        return json.dumps({"error": str(e)})
+
+def client_thread(client, addr):
+    print("Client connected:", addr)
+    data = client.recv(1024).decode()
+    response = handle_request(data)
+    client.send(response.encode())
+    client.close()
+
+def start_server():
+    s = socket.socket()
+    s.bind(("localhost", 5000))
+    s.listen(5)
+    print("RPC Server running on port 5000 (Multithreaded)...")
+
+    while True:
+        client, addr = s.accept()
+
+        # ⭐ NEW LINE: spawn thread for each client
+        threading.Thread(target=client_thread, args=(client, addr), daemon=True).start()
+
+if __name__ == "__main__":
+    start_server()
+
+✅ Client Code – NO CHANGES
+# rpc_client.py
+import socket
+import json
+
+def rpc_call(method, params):
+    s = socket.socket()
+    s.connect(("localhost", 5000))
+
+    request = json.dumps({
+        "method": method,
+        "params": params
+    })
+
+    s.send(request.encode())
+    response = s.recv(1024).decode()
+    s.close()
+
+    return json.loads(response)
+
+
+print("Calling add(10, 20)")
+print(rpc_call("add", [10, 20]))
+
+print("\nCalling multiply(5, 6)")
+print(rpc_call("multiply", [5, 6]))
+
+print("\nCalling a non-existing function:")
+print(rpc_call("divide", [10, 5]))
+
+🎯 How to demonstrate multithreading?
+
+Run server in Terminal 1
+
+python rpc_server.py
+
+
+Open two or more terminals
+
+Run client in all terminals at same time:
+
+python rpc_client.py
+python rpc_client.py
+python rpc_client.py
+
+
+Server will print:
+
+Client connected: ('127.0.0.1', 54231)
+Client connected: ('127.0.0.1', 54232)
+Client connected: ('127.0.0.1', 54233)
+
+
+Each is handled by a separate thread.
+
+🎉 Ready for viva lines
+
+Memorize only this:
+
+“Multithreading works because the server spawns a new thread for each client using threading.Thread(target=client_thread).start(). This lets multiple clients connect simultaneously on the same port.”
